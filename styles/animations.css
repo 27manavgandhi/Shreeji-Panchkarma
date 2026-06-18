@@ -1,0 +1,85 @@
+/* ─── Blog Prose Styles ─────────────────────────────────────── */
+
+.prose-ayurvedic h2 {
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  color: #1A2E1A;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.prose-ayurvedic h3 {
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  color: #2D6A4F;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-ayurvedic p {
+  font-family: var(--font-raleway);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: #4A5E4A;
+  margin-bottom: 1.25rem;
+}
+
+.prose-ayurvedic strong {
+  color: #1A2E1A;
+  font-weight: 600;
+}
+
+.prose-ayurvedic ul, .prose-ayurvedic ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  font-family: var(--font-raleway);
+  color: #4A5E4A;
+  line-height: 1.85;
+}
+
+.prose-ayurvedic li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-ayurvedic blockquote {
+  border-left: 3px solid #C9A84C;
+  padding-left: 1.25rem;
+  margin: 2rem 0;
+  font-family: var(--font-lora);
+  font-style: italic;
+  color: #2D6A4F;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.prose-ayurvedic a {
+  color: #2D6A4F;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-ayurvedic a:hover {
+  color: #C9A84C;
+}
+
+/* ─── Treatment Page ─────────────────────────────────────────── */
+
+.treatment-process-step {
+  position: relative;
+}
+
+.treatment-process-step::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 40px;
+  bottom: -24px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(45,106,79,0.3), transparent);
+}
+
+.treatment-process-step:last-child::before {
+  display: none;
+}

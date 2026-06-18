@@ -1,0 +1,445 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap');
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --color-primary: #2D6A4F;
+    --color-primary-dark: #1B4332;
+    --color-primary-light: #40916C;
+    --color-secondary: #74C69D;
+    --color-accent: #C9A84C;
+    --color-accent-soft: #F4D98C;
+    --color-accent-dark: #92400E;
+    --color-bg: #FDFAF4;
+    --color-bg-section: #F0EBE1;
+    --color-text: #1A2E1A;
+    --color-text-muted: #4A5E4A;
+    --color-chapter-1: #1B4332;
+    --color-chapter-2: #2D6A4F;
+    --color-chapter-3: #40916C;
+    --color-chapter-4: #C9A84C;
+
+    /* Animation */
+    --duration-micro: 150ms;
+    --duration-fast: 250ms;
+    --duration-normal: 400ms;
+    --duration-slow: 600ms;
+    --ease-organic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Shadows */
+    --shadow-card: 0 4px 24px rgba(26, 46, 26, 0.08);
+    --shadow-card-hover: 0 20px 60px rgba(26, 46, 26, 0.16);
+    --shadow-gold: 0 0 30px rgba(201, 168, 76, 0.35);
+    --shadow-green: 0 0 40px rgba(45, 106, 79, 0.3);
+
+    /* Organic Radius */
+    --radius-sm: 16px;
+    --radius-md: 24px;
+    --radius-lg: 32px;
+
+    /* Font Variables (set by next/font) */
+    --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+    --font-raleway: 'Raleway', system-ui, sans-serif;
+    --font-lora: 'Lora', Georgia, serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-raleway);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-cormorant);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-text);
+  }
+
+  blockquote,
+  .font-lora,
+  .sanskrit {
+    font-family: var(--font-lora);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-section);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(201, 168, 76, 0.25);
+    color: var(--color-text);
+  }
+
+  /* Focus visible */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Typography */
+  p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+  }
+
+  /* Images */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Links */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  /* Sanskrit text */
+  .devanagari {
+    font-family: 'Lora', serif;
+    direction: ltr;
+    unicode-bidi: normal;
+  }
+
+  /* Grain texture overlay */
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Section padding */
+  .section-padding {
+    padding-top: clamp(4rem, 8vw, 7rem);
+    padding-bottom: clamp(4rem, 8vw, 7rem);
+  }
+
+  /* Container */
+  .container-custom {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+  }
+
+  /* Gold shimmer */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transform: skewX(-20deg);
+    animation: shimmer-sweep 3s ease infinite;
+  }
+
+  /* Product card orb */
+  .product-orb {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+    box-shadow: 0 0 30px 10px rgba(201, 168, 76, 0.25);
+    animation: orb-pulse 3s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Marquee container */
+  .marquee-wrapper {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  .marquee-track {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    gap: 0;
+  }
+
+  /* Chapter progress dots */
+  .chapter-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .chapter-dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background: var(--color-accent);
+  }
+
+  /* Star rating */
+  .star-rating {
+    color: var(--color-accent);
+    letter-spacing: 2px;
+  }
+
+  /* WhatsApp float button */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+  }
+}
+
+@layer utilities {
+  /* Prevent text selection on decorative elements */
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Perspective for 3D transforms */
+  .perspective-800 {
+    perspective: 800px;
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  /* GPU acceleration */
+  .gpu {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Text gradient */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #C9A84C 0%, #F4D98C 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-green {
+    background: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Organic blob shapes */
+  .blob-1 { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  .blob-2 { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+
+  /* Line clamp */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ─── Mobile Responsive Fixes ───────────────────────────── */
+
+/* Prevent horizontal overflow globally */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Touch targets – minimum 44px */
+button, a, [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+button.inline-icon, a.inline-icon {
+  min-height: unset;
+  min-width: unset;
+}
+
+/* Container mobile padding */
+@media (max-width: 640px) {
+  .container-custom {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .section-padding {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+/* Hero headline mobile */
+@media (max-width: 480px) {
+  .font-cormorant {
+    word-break: break-word;
+  }
+}
+
+/* Marquee – no overflow on mobile */
+.marquee-wrapper {
+  overflow: hidden;
+}
+
+/* Product cards – equal height grid */
+@media (max-width: 767px) {
+  .grid.md\:grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  .grid.md\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Fix chatbot on small phones */
+@media (max-width: 380px) {
+  .sm\:w-\[360px\] {
+    width: calc(100vw - 2rem) !important;
+  }
+}
+
+/* ─── Smooth Scroll & Transitions ──────────────────────── */
+
+/* Page-level smooth transitions */
+main {
+  transition: opacity 0.15s ease;
+}
+
+/* Link hover underline transition */
+a {
+  transition: color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Button press feel */
+button:active {
+  transform: scale(0.97);
+}
+a:active {
+  opacity: 0.85;
+}
+
+/* Scrollbar thin on mobile */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+
+/* ─── Fix ScrollProgress labels contrast ────────────────── */
+/* Labels now have their own background so no additional overrides needed */
+
+/* ─── Tablet fixes ──────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .lg\:grid-cols-5 {
+    grid-template-columns: 1fr;
+  }
+  .lg\:col-span-3,
+  .lg\:col-span-2 {
+    grid-column: span 1;
+  }
+}
+
+/* ─── Reduce animation on low-end devices ──────────────── */
+@media (prefers-reduced-motion: reduce) {
+  canvas {
+    display: none;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
+}
+
+/* ─── Focus visible for accessibility ───────────────────── */
+*:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ─── Image optimisation ────────────────────────────────── */
+img {
+  image-rendering: -webkit-optimize-contrast;
+}
