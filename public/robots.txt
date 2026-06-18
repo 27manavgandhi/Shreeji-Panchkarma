@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /api/
+Disallow: /checkout
+
+# Host
+Host: https://shreejipanchkarma.com
+
+# Sitemaps
+Sitemap: https://shreejipanchkarma.com/sitemap.xml
