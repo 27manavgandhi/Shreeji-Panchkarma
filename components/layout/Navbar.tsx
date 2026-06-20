@@ -41,7 +41,10 @@ export default function Navbar() {
   const isLight = isHomePage && !scrolled;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      // Turn solid after 85% of viewport height (clears the hero section)
+      setScrolled(window.scrollY > Math.max(60, window.innerHeight * 0.82));
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -63,7 +66,7 @@ export default function Navbar() {
         className={cn(
           "fixed z-50 transition-all duration-400",
           scrolled
-            ? "top-0 left-0 right-0 bg-white/96 backdrop-blur-lg shadow-sm border-b border-cream-section"
+            ? "top-0 left-0 right-0 bg-white shadow-sm border-b border-cream-section"
             : "top-3 left-3 right-3 md:top-4 md:left-4 md:right-4"
         )}
       >
