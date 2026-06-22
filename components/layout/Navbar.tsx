@@ -40,9 +40,11 @@ export default function Navbar() {
   const isHomePage = pathname === "/";
   const isLight = isHomePage && !scrolled;
 
+  // On non-homepage, navbar is always solid. On homepage, solid after hero.
+  const isSolid = !isHomePage || scrolled;
+
   useEffect(() => {
     const onScroll = () => {
-      // Turn solid after 85% of viewport height (clears the hero section)
       setScrolled(window.scrollY > Math.max(60, window.innerHeight * 0.82));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -51,7 +53,6 @@ export default function Navbar() {
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
-  // Lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -64,16 +65,18 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
         className={cn(
-          "fixed z-50 transition-all duration-400",
-          scrolled
+          "fixed z-50 transition-all duration-500",
+          isSolid
             ? "top-0 left-0 right-0 bg-white shadow-sm border-b border-cream-section"
             : "top-3 left-3 right-3 md:top-4 md:left-4 md:right-4"
         )}
       >
         <div
           className={cn(
-            "flex items-center justify-between px-4 md:px-5 transition-all duration-400",
-            scrolled ? "py-3" : "py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20"
+            "flex items-center justify-between px-4 md:px-5 transition-all duration-500",
+            isSolid
+              ? "py-3"
+              : "py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20"
           )}
         >
           {/* Logo */}
@@ -142,8 +145,12 @@ export default function Navbar() {
                   className={cn(
                     "px-3 py-2 rounded-xl text-sm font-raleway font-500 transition-all duration-200",
                     pathname === link.href
-                      ? isLight ? "text-white bg-white/20" : "text-primary bg-primary/10"
-                      : isLight ? "text-white/80 hover:text-white hover:bg-white/15" : "text-forest-muted hover:text-primary hover:bg-primary/8"
+                      ? isLight
+                        ? "text-white bg-white/20"
+                        : "text-primary bg-primary/10"
+                      : isLight
+                      ? "text-white/80 hover:text-white hover:bg-white/15"
+                      : "text-forest-muted hover:text-primary hover:bg-primary/8"
                   )}
                 >
                   {link.label}
@@ -158,7 +165,9 @@ export default function Navbar() {
               href="tel:+919876543210"
               className={cn(
                 "hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-raleway font-500 transition-all duration-200",
-                isLight ? "text-white/80 hover:text-white hover:bg-white/15" : "text-forest-muted hover:text-primary hover:bg-primary/8"
+                isLight
+                  ? "text-white/80 hover:text-white hover:bg-white/15"
+                  : "text-forest-muted hover:text-primary hover:bg-primary/8"
               )}
               aria-label="Call us"
             >
@@ -171,7 +180,9 @@ export default function Navbar() {
               onClick={toggleCart}
               className={cn(
                 "relative p-2.5 rounded-xl transition-all duration-200 cursor-pointer",
-                isLight ? "text-white hover:bg-white/20" : "text-forest-muted hover:text-primary hover:bg-primary/10"
+                isLight
+                  ? "text-white hover:bg-white/20"
+                  : "text-forest-muted hover:text-primary hover:bg-primary/10"
               )}
               aria-label={`Cart (${itemCount} items)`}
             >
@@ -184,7 +195,8 @@ export default function Navbar() {
                     animate={{ scale: 1 }}
                     exit={{ scale: 0 }}
                     transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                    className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-accent text-white text-[9px] font-700 rounded-full flex items-center justify-center min-w-[18px] min-h-[18px]"
+                    className="absolute -top-0.5 -right-0.5 bg-accent text-white text-[9px] font-700 rounded-full flex items-center justify-center"
+                    style={{ minWidth: 18, minHeight: 18, padding: "0 4px" }}
                   >
                     {itemCount}
                   </motion.span>
@@ -210,18 +222,32 @@ export default function Navbar() {
               onClick={() => setMobileOpen((v) => !v)}
               className={cn(
                 "lg:hidden p-2.5 rounded-xl transition-all duration-200 cursor-pointer",
-                isLight ? "text-white hover:bg-white/20" : "text-forest hover:bg-primary/10"
+                isLight
+                  ? "text-white hover:bg-white/20"
+                  : "text-forest hover:bg-primary/10"
               )}
               aria-label="Toggle menu"
               aria-expanded={mobileOpen}
             >
               <AnimatePresence mode="wait">
                 {mobileOpen ? (
-                  <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                  <motion.span
+                    key="x"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
                     <X size={20} />
                   </motion.span>
                 ) : (
-                  <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                  <motion.span
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
                     <Menu size={20} />
                   </motion.span>
                 )}
@@ -247,7 +273,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="fixed top-20 left-3 right-3 z-40 lg:hidden bg-white rounded-2xl shadow-float overflow-hidden border border-cream-section"
+              className="fixed top-20 left-3 right-3 z-40 lg:hidden bg-white rounded-2xl overflow-hidden border border-cream-section"
               style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.15)" }}
             >
               <div className="p-3 space-y-0.5 max-h-[70vh] overflow-y-auto">
